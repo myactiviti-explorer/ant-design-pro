@@ -170,7 +170,7 @@ export default class TableForm extends PureComponent {
     return text;
     },
     }, {
-      title: '所属部门4',
+      title: '新所属部门',
       dataIndex: 'department',
       key: 'department',
       width: '20%',
