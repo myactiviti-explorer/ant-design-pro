@@ -28,7 +28,7 @@ export const getNavData = app => [
           {
             name: '已部署流程',
             path: 'yibushu',
-            component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/BasicForm')),
+            component: dynamicWrapper(app, ['list'], () => import('../routes/List/BasicList')),
           },
           {
             name: '流程设计工作区',

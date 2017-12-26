@@ -37,7 +37,11 @@ export default class BasicList extends PureComponent {
 
     const extraContent = (
       <div className={styles.extraContent}>
-        
+        <RadioGroup defaultValue="all">
+          <RadioButton value="all">全部</RadioButton>
+          <RadioButton value="progress">进行中</RadioButton>
+          <RadioButton value="waiting">等待中</RadioButton>
+        </RadioGroup>
         <Search
           className={styles.extraContentSearch}
           placeholder="请输入"
@@ -98,6 +102,9 @@ export default class BasicList extends PureComponent {
             bodyStyle={{ padding: '0 32px 40px 32px' }}
             extra={extraContent}
           >
+            <Button type="dashed" style={{ width: '100%', marginBottom: 8 }} icon="plus">
+              添加
+            </Button>
             <List
               size="large"
               rowKey="id"

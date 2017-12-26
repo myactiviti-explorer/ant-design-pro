@@ -1,14 +1,14 @@
 import { getUrlParams } from './utils';
 
 const titles = [
-  'Alipay',
-  'Angular',
-  'Ant Design',
-  'Ant Design Pro',
-  'Bootstrap',
-  'React',
-  'Vue',
-  'Webpack',
+  'ADSASD',
+  '项目管理2',
+  'Manual_task_1',
+  'Real_task_1',
+  'Service_task_1',
+  'Timer_mail_task_1',
+  '项目管理-项目启动-项目立项-全部',
+  'Mail_task_1',
 ];
 const avatars = [
   'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png', // Alipay
@@ -41,11 +41,11 @@ const covers = [
   'https://gw.alipayobjects.com/zos/rmsportal/gLaIAoVWTtLbBWZNYEMg.png',
 ];
 const desc = [
-  '那是一种内在的东西， 他们到达不了，也无法触及的1',
-  '希望是一个好东西，也许是最好的，好东西是不会消亡的',
-  '生命就像一盒巧克力，结果往往出人意料',
-  '城镇中有那么多的酒馆，她却偏偏走进了我的酒馆',
-  '那时候我只会想自己想要什么，从不想自己拥有什么',
+  '版本1',
+  '版本1',
+  '版本1',
+  '版本1',
+  '版本1',
 ];
 
 const user = [
@@ -61,6 +61,17 @@ const user = [
   '仲尼',
 ];
 
+const businessId = [
+  '00001',
+  '00002',
+  '00003',
+  '00004',
+  '00005',
+  '00006',
+  '00007',
+  '00008',
+]
+
 export function fakeList(count) {
   const list = [];
   for (let i = 0; i < count; i += 1) {
@@ -72,10 +83,11 @@ export function fakeList(count) {
       cover: parseInt(i / 4, 10) % 2 === 0 ? covers[i % 4] : covers[3 - (i % 4)],
       status: ['active', 'exception', 'normal'][i % 3],
       percent: Math.ceil(Math.random() * 50) + 50,
-      logo: avatars[i % 8],
+      logo: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
       href: 'https://ant.design',
       updatedAt: new Date(new Date().getTime() - (1000 * 60 * 60 * 2 * i)),
       createdAt: new Date(new Date().getTime() - (1000 * 60 * 60 * 2 * i)),
+      businessId: businessId[i % 5],
       subDescription: desc[i % 5],
       description: '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
       activeUser: Math.ceil(Math.random() * 100000) + 100000,
