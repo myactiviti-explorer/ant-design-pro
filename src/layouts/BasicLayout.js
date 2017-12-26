@@ -58,10 +58,10 @@ class BasicLayout extends React.PureComponent {
   getPageTitle() {
     const { location, getRouteData } = this.props;
     const { pathname } = location;
-    let title = 'Ant Design Pro';
+    let title = 'myActiviti';
     getRouteData('BasicLayout').forEach((item) => {
       if (item.path === pathname) {
-        title = `${item.name} - Ant Design Pro`;
+        title = `${item.name} - myActiviti`;
       }
     });
     return title;
@@ -128,7 +128,7 @@ class BasicLayout extends React.PureComponent {
                 href: 'https://github.com/ant-design/ant-design-pro',
                 blankTarget: true,
               }, {
-                title: 'Ant Design',
+                title: 'myActiviti',
                 href: 'http://ant.design',
                 blankTarget: true,
               }]}
