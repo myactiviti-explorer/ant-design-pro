@@ -33,7 +33,7 @@ export const getNavData = app => [
           {
             name: '流程设计工作区',
             path: 'liuchengsheji',
-            component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/BasicForm')),
+            component: dynamicWrapper(app, ['list'], () => import('../routes/List/FlowDesign')),
           },
         ],
       },
