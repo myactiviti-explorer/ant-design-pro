@@ -1,5 +1,12 @@
 {
   "entry": "src/index.js",
+  "proxy":{
+    "/api":{
+    "target":"http://localhost:8078/activiti-explorer/wfservice/",
+    "changeOrigin":true,
+    "pathRewrite":{"^/api":""}
+    }
+  },
   "extraBabelPlugins": [
     "transform-runtime",
     "transform-decorators-legacy",
