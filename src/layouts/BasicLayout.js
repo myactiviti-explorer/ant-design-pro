@@ -114,7 +114,7 @@ class BasicLayout extends React.PureComponent {
                     )
                   )
                 }
-                <Redirect exact from="/" to="/flow/yibushu" />
+                <Redirect exact from="/" to="/flow/yibushu1" />
                 <Route component={NotFound} />
               </Switch>
             </div>

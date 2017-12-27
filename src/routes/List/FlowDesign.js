@@ -60,7 +60,7 @@ export default class BasicList extends PureComponent {
       <div className={styles.listContent}>
         <div>
           <span>Owner</span>
-          <p>{owner}</p>
+          <p>{owner.name}</p>
         </div>
         <div>
           <span>部署时间</span>

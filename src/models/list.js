@@ -1,4 +1,5 @@
 import { queryFakeList } from '../services/api';
+import Hello from '../utils/Hello20';
 
 export default {
   namespace: 'list',
@@ -14,7 +15,7 @@ export default {
         type: 'changeLoading',
         payload: true,
       });
-      const response = yield call(queryFakeList, payload);
+      const response = Hello.format(yield call(queryFakeList, payload));
       yield put({
         type: 'queryList',
         payload: Array.isArray(response) ? response : [],
