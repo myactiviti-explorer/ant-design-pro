@@ -1,6 +1,5 @@
 import { stringify } from 'qs';
 import request from '../utils/request';
-import Hello from '../utils/Hello20';
 
 export async function queryProjectNotice() {
   return request('/api/project/notice');
@@ -58,11 +57,6 @@ export async function queryAdvancedProfile() {
 }
 
 export async function queryFakeList(params) {
-//  var s = request(`/api/fake_list?${stringify(params)}`);
-//  console.log(JSON.stringify(s));
-//  console.log(s.value());
-
-//  return Hello.format(s.value());
   return request(`/api/fake_list?${stringify(params)}`);
 }
 

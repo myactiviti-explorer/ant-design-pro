@@ -6,7 +6,6 @@ import { List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, M
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 import styles from './BasicList.less';
-import Hello from '../../utils/Hello';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -58,7 +57,7 @@ export default class BasicList extends PureComponent {
       <div className={styles.listContent}>
         <div>
           <span>Owner</span>
-          <p>{owner.processReturn[0].owner.name}1</p>
+          <p>{owner.name}</p>
         </div>
         <div>
           <span>部署时间</span>
