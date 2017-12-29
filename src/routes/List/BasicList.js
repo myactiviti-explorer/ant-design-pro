@@ -11,6 +11,7 @@ const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
 
+
 @connect(state => ({
   list: state.list,
 }))
@@ -19,14 +20,13 @@ export default class BasicList extends PureComponent {
     this.props.dispatch({
       type: 'list/fetch',
       payload: {
-        count: 5,
+        count: 1,
       },
     });
   }
 
   render() {
     const { list: { list, loading } } = this.props;
-
     const Info = ({ title, value, bordered }) => (
       <div className={styles.headerInfo}>
         <span>{title}</span>
@@ -51,6 +51,15 @@ export default class BasicList extends PureComponent {
       showQuickJumper: true,
       pageSize: 5,
       total: 50,
+      defaultCurrent:1,
+      current:list.pageNo,
+      total:list.totalCount,
+      onChange:(e)=>{this.props.dispatch({
+        type: 'list/fetch',
+        payload: {
+          count: e,
+        },
+      })}
     };
 
     const ListContent = ({ data: { owner, createdAt, percent, status, businessId } }) => (
@@ -103,7 +112,7 @@ export default class BasicList extends PureComponent {
               rowKey="id"
               loading={loading}
               pagination={paginationProps}
-              dataSource={list}
+              dataSource={list.pageItems}
               renderItem={item => (
                 <List.Item
                   actions={[<a>启动</a>, <MoreBtn />]}

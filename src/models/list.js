@@ -18,7 +18,7 @@ export default {
       const response = Jsonx.format(yield call(queryFakeList, payload));
       yield put({
         type: 'queryList',
-        payload: Array.isArray(response) ? response : [],
+        payload: response,
       });
       yield put({
         type: 'changeLoading',
