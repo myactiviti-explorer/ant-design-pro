@@ -6,11 +6,11 @@ import { List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, M
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 import styles from './BasicList.less';
+import Jsonx from '../../utils/Jsonx';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
-
 
 @connect(state => ({
   list: state.list,
@@ -18,7 +18,7 @@ const { Search } = Input;
 export default class BasicList extends PureComponent {
   componentDidMount() {
     this.props.dispatch({
-      type: 'list/fetch',
+      type: 'list/designing',
       payload: {
         count: 1,
       },
@@ -58,22 +58,22 @@ export default class BasicList extends PureComponent {
       current:list.pageNo,
       total:list.totalCount,
       onChange:(e)=>{this.props.dispatch({
-        type: 'list/fetch',
+        type: 'list/designing',
         payload: {
           count: e,
         },
       })}
     };
 
-    const ListContent = ({ data: { owner, createdAt, percent, status, businessId } }) => (
+    const ListContent = ({ data: { owner, createTime, lastUpdateTime, percent, status, businessId } }) => (
       <div className={styles.listContent}>
         <div>
           <span>Owner</span>
-          <p>{owner.name}</p>
+          <p>{owner}</p>
         </div>
         <div>
-          <span>部署时间</span>
-          <p>{moment(createdAt).format('YYYY-MM-DD hh:mm')}</p>
+          <span>创建时间 {moment(createTime).format('YYYY-MM-DD hh:mm')}</span>
+          <p>最后修改 {moment(lastUpdateTime).format('YYYY-MM-DD hh:mm')}</p>
         </div>
       </div>
     );
@@ -127,9 +127,9 @@ export default class BasicList extends PureComponent {
                   actions={[<a>部署</a>, <MoreBtn />]}
                 >
                   <List.Item.Meta
-                    avatar={<Avatar src={item.logo} shape="square" size="large" />}
-                    title={<a href={item.href}>{item.title}</a>}
-                    description={item.subDescription + '，关联业务 ' + item.businessId}
+                    avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large" />}
+                    title={<a href={item.href}>{item.name}</a>}
+                    description={Jsonx.format(item.metaInfo).name + '，关联业务 ' + item.businessId}
                   />
                   <ListContent data={item} />
                 </List.Item>

@@ -1,4 +1,5 @@
 import { queryFakeList } from '../services/api';
+import { listDesigning } from '../services/api';
 import Jsonx from '../utils/Jsonx';
 
 export default {
@@ -10,6 +11,21 @@ export default {
   },
 
   effects: {
+    *designing({ payload }, { call, put }) {
+      yield put({
+        type: 'changeLoading',
+        payload: true,
+      });
+      const response = Jsonx.format(yield call(listDesigning, payload));
+      yield put({
+        type: 'queryList',
+        payload: response,
+      });
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      });
+    },
     *fetch({ payload }, { call, put }) {
       yield put({
         type: 'changeLoading',
