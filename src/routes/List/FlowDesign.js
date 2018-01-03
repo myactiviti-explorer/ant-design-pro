@@ -129,7 +129,7 @@ export default class BasicList extends PureComponent {
                   <List.Item.Meta
                     avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large" />}
                     title={<a href={item.href}>{item.name}</a>}
-                    description={Jsonx.format(item.metaInfo).name + '，关联业务 ' + item.businessId}
+                    description={!!Jsonx.format(item.metaInfo)?Jsonx.format(item.metaInfo).name:null + '，关联业务 ' + item.businessId}
                   />
                   <ListContent data={item} />
                 </List.Item>

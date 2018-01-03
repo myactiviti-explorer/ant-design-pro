@@ -13,12 +13,12 @@ const { Search } = Input;
 
 
 @connect(state => ({
-  list: state.list,
+  list: state.list2,
 }))
 export default class BasicList extends PureComponent {
   componentDidMount() {
     this.props.dispatch({
-      type: 'list/fetch',
+      type: 'list2/fetch',
       payload: {
         count: 1,
       },
@@ -55,7 +55,7 @@ export default class BasicList extends PureComponent {
       current:list.pageNo,
       total:list.totalCount,
       onChange:(e)=>{this.props.dispatch({
-        type: 'list/fetch',
+        type: 'list2/fetch',
         payload: {
           count: e,
         },

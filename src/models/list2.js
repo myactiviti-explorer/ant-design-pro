@@ -3,11 +3,10 @@ import { listDesigning } from '../services/api';
 import Jsonx from '../utils/Jsonx';
 
 export default {
-  namespace: 'list',
+  namespace: 'list2',
 
   state: {
     list: [],
-    list2: [],
     loading: false,
   },
 
