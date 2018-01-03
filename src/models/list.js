@@ -1,4 +1,4 @@
-import { queryFakeList } from '../services/api';
+import { listDeployed } from '../services/api';
 import { listDesigning } from '../services/api';
 import Jsonx from '../utils/Jsonx';
 
@@ -28,18 +28,18 @@ export default {
         payload: false,
       });
     },
-    *fetch({ payload }, { call, put }) {
+    *deployed({ payload }, { call, put }) {
       yield put({
-        type: 'changeLoading2',
+        type: 'changeLoading',
         payload: true,
       });
-      const response = Jsonx.format(yield call(queryFakeList, payload));
+      const response = Jsonx.format(yield call(listDeployed, payload));
       yield put({
         type: 'queryList2',
         payload: response,
       });
       yield put({
-        type: 'changeLoading2',
+        type: 'changeLoading',
         payload: false,
       });
     },
@@ -48,7 +48,7 @@ export default {
         type: 'changeLoading',
         payload: true,
       });
-      const response = yield call(queryFakeList, payload);
+      const response = yield call(listDeployed, payload);
       yield put({
         type: 'appendList',
         payload: Array.isArray(response) ? response : [],
@@ -83,12 +83,6 @@ export default {
       return {
         ...state,
         list2: action.payload,
-      };
-    },
-    changeLoading2(state, action) {
-      return {
-        ...state,
-        loading2: action.payload,
       };
     },
   },

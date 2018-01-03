@@ -15,7 +15,7 @@ const { Search } = Input;
 @connect(state => ({
   list: state.list,
 }))
-export default class BasicList extends PureComponent {
+export default class FlowDesign extends PureComponent {
   componentDidMount() {
     this.props.dispatch({
       type: 'list/designing',
