@@ -113,14 +113,15 @@ export default class ListDeployed extends PureComponent {
               loading={loading}
               pagination={paginationProps}
               dataSource={list2.pageItems}
+
               renderItem={item => (
                 <List.Item
-                  actions={[<a>启动</a>, <MoreBtn />]}
+                  actions={[<a href="">启动</a>, <MoreBtn />]}
                 >
                   <List.Item.Meta
-                    avatar={<Avatar src={item.logo} shape="square" size="large" />}
-                    title={<a href={item.href}>{item.title}</a>}
-                    description={item.subDescription + '，关联业务 ' + item.businessId}
+                    avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large" />}
+                    title={<a href={item.key}>{item.key}</a>}
+                    description={item.id + '，关联业务 ' + item.businessId}
                   />
                   <ListContent data={item} />
                 </List.Item>
@@ -130,5 +131,6 @@ export default class ListDeployed extends PureComponent {
         </div>
       </PageHeaderLayout>
     );
+    // return null;
   }
 }

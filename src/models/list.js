@@ -1,5 +1,4 @@
-import { listDeployed } from '../services/api';
-import { listDesigning } from '../services/api';
+import { listDeployed,listDesigning } from '../services/api';
 import Jsonx from '../utils/Jsonx';
 
 export default {
@@ -9,7 +8,6 @@ export default {
     list: [],
     list2: [],
     loading: false,
-    loading2: false,
   },
 
   effects: {

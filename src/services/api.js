@@ -57,7 +57,7 @@ export async function queryAdvancedProfile() {
 }
 
 export async function listDeployed(params) {
-  return request(`/api/fake_list?${stringify(params)}`);
+  return request(`/api/s/listDeployed?${stringify(params)}`);
 }
 
 export async function listDesigning(params) {
