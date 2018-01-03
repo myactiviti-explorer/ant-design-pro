@@ -20,7 +20,7 @@ export default {
       });
       const response = Jsonx.format(yield call(listDesigning, payload));
       yield put({
-        type: 'queryList',
+        type: 'listDesigning',
         payload: response,
       });
       yield put({
@@ -35,7 +35,7 @@ export default {
       });
       const response = Jsonx.format(yield call(listDeployed, payload));
       yield put({
-        type: 'queryList2',
+        type: 'listDeployed',
         payload: response,
       });
       yield put({
@@ -61,10 +61,16 @@ export default {
   },
 
   reducers: {
-    queryList(state, action) {
+    listDesigning(state, action) {
       return {
         ...state,
         list: action.payload,
+      };
+    },
+    listDeployed(state, action) {
+      return {
+        ...state,
+        list2: action.payload,
       };
     },
     appendList(state, action) {
@@ -77,12 +83,6 @@ export default {
       return {
         ...state,
         loading: action.payload,
-      };
-    },
-    queryList2(state, action) {
-      return {
-        ...state,
-        list2: action.payload,
       };
     },
   },
