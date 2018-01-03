@@ -9,6 +9,7 @@ export default {
     list: [],
     list2: [],
     loading: false,
+    loading2: false,
   },
 
   effects: {
@@ -29,16 +30,16 @@ export default {
     },
     *fetch({ payload }, { call, put }) {
       yield put({
-        type: 'changeLoading',
+        type: 'changeLoading2',
         payload: true,
       });
       const response = Jsonx.format(yield call(queryFakeList, payload));
       yield put({
-        type: 'queryList',
+        type: 'queryList2',
         payload: response,
       });
       yield put({
-        type: 'changeLoading',
+        type: 'changeLoading2',
         payload: false,
       });
     },
@@ -76,6 +77,18 @@ export default {
       return {
         ...state,
         loading: action.payload,
+      };
+    },
+    queryList2(state, action) {
+      return {
+        ...state,
+        list2: action.payload,
+      };
+    },
+    changeLoading2(state, action) {
+      return {
+        ...state,
+        loading2: action.payload,
       };
     },
   },

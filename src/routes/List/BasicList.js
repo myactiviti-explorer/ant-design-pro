@@ -13,12 +13,12 @@ const { Search } = Input;
 
 
 @connect(state => ({
-  list: state.list2,
+  list: state.list,
 }))
 export default class BasicList extends PureComponent {
   componentDidMount() {
     this.props.dispatch({
-      type: 'list2/fetch',
+      type: 'list/fetch',
       payload: {
         count: 1,
       },
@@ -26,7 +26,7 @@ export default class BasicList extends PureComponent {
   }
 
   render() {
-    const { list: { list, loading } } = this.props;
+    const { list: { list2, loading2 } } = this.props;
     const Info = ({ title, value, bordered }) => (
       <div className={styles.headerInfo}>
         <span>{title}</span>
@@ -52,10 +52,10 @@ export default class BasicList extends PureComponent {
       pageSize: 5,
       total: 50,
       defaultCurrent:1,
-      current:list.pageNo,
-      total:list.totalCount,
+      current:list2.pageNo,
+      total:list2.totalCount,
       onChange:(e)=>{this.props.dispatch({
-        type: 'list2/fetch',
+        type: 'list/fetch',
         payload: {
           count: e,
         },
@@ -110,9 +110,9 @@ export default class BasicList extends PureComponent {
             <List
               size="large"
               rowKey="id"
-              loading={loading}
+              loading={loading2}
               pagination={paginationProps}
-              dataSource={list.pageItems}
+              dataSource={list2.pageItems}
               renderItem={item => (
                 <List.Item
                   actions={[<a>启动</a>, <MoreBtn />]}
