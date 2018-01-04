@@ -94,8 +94,12 @@ export default class ListDeployed extends PureComponent {
       </Dropdown>
     );
     const start = (s) => {
-      alert(s);
-    }
+      this.props.dispatch({
+        type: 'list/start',
+        payload: {
+          id: s,
+        },
+    })}
     return (
       <PageHeaderLayout>
         <div className={styles.standardList}>

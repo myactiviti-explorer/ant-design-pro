@@ -64,6 +64,10 @@ export async function listDesigning(params) {
   return request(`/api/listDesigning?${stringify(params)}`);
 }
 
+export async function listStart(params) {
+  return request(`/api/listStart?${stringify(params)}`);
+}
+
 export async function fakeAccountLogin(params) {
   return request('/api/login/account', {
     method: 'POST',

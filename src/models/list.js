@@ -1,4 +1,4 @@
-import { listDeployed,listDesigning } from '../services/api';
+import { listDeployed,listDesigning,listStart } from '../services/api';
 import Jsonx from '../utils/Jsonx';
 
 export default {
@@ -55,6 +55,9 @@ export default {
         type: 'changeLoading',
         payload: false,
       });
+    },
+    *start({ payload }, { call, put }) {
+      const response = yield call(listStart, payload);
     },
   },
 
