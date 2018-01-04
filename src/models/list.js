@@ -1,5 +1,7 @@
 import { listDeployed,listDesigning,listStart } from '../services/api';
 import Jsonx from '../utils/Jsonx';
+import { Alert } from 'antd';
+import ReactDOM from 'react-dom';
 
 export default {
   namespace: 'list',
@@ -56,8 +58,22 @@ export default {
         payload: false,
       });
     },
-    *start({ payload }, { call, put }) {
+    *start({ payload,mountNode }, { call, put }) {
+      yield put({
+        type: 'changeLoading',
+        payload: true,
+      });
       const response = yield call(listStart, payload);
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      },);
+      yield put({
+        type: 'showMessage',
+        payload: response,
+        mountNode: mountNode,
+        id: payload.id,
+      });
     },
   },
 
@@ -85,6 +101,14 @@ export default {
         ...state,
         loading: action.payload,
       };
+    },
+    showMessage(state, action) {
+      ReactDOM.render(
+        <Alert message={action.id} type="success" showIcon />
+      , action.mountNode);
+      return {
+        ...state,
+      }
     },
   },
 };

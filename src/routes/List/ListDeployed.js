@@ -93,15 +93,19 @@ export default class ListDeployed extends PureComponent {
         </a>
       </Dropdown>
     );
-    const start = (s) => {
+    const start = (s,n) => {
       this.props.dispatch({
         type: 'list/start',
         payload: {
           id: s,
         },
+        mountNode:n,
     })}
     return (
       <PageHeaderLayout>
+        <div id="cool">
+        </div>
+
         <div className={styles.standardList}>
           <Card
             className={styles.listCard}
@@ -120,7 +124,7 @@ export default class ListDeployed extends PureComponent {
 
               renderItem={item => (
                 <List.Item
-                  actions={[<a onClick={()=>start(item.id)}>启动</a>, <MoreBtn />]}
+                  actions={[<a onClick={()=>start(item.id,document.getElementById('cool'))}>启动</a>, <MoreBtn />]}
                 >
 
                   <List.Item.Meta
