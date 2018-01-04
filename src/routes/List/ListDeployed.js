@@ -93,12 +93,12 @@ export default class ListDeployed extends PureComponent {
         </a>
       </Dropdown>
     );
-
+    const start = (s) => {
+      alert(s);
+    }
     return (
       <PageHeaderLayout>
         <div className={styles.standardList}>
-
-
           <Card
             className={styles.listCard}
             bordered={false}
@@ -116,8 +116,9 @@ export default class ListDeployed extends PureComponent {
 
               renderItem={item => (
                 <List.Item
-                  actions={[<a href="">启动</a>, <MoreBtn />]}
+                  actions={[<a onClick={()=>start(item.id)}>启动</a>, <MoreBtn />]}
                 >
+
                   <List.Item.Meta
                     avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large" />}
                     title={<a href={item.key}>{item.key}</a>}
