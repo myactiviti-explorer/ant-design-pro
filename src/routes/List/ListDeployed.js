@@ -131,6 +131,5 @@ export default class ListDeployed extends PureComponent {
         </div>
       </PageHeaderLayout>
     );
-    // return null;
   }
 }
