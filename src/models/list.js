@@ -1,4 +1,4 @@
-import { listDeployed,listDesigning,listStart } from '../services/api';
+import { listDeployed,listDesigning,doStart,doDeploy } from '../services/api';
 import Jsonx from '../utils/Jsonx';
 import DCR from '../utils/DealCommonReturn';
 import { Alert } from 'antd';
@@ -64,7 +64,7 @@ export default {
         type: 'changeLoading',
         payload: true,
       });
-      const response = yield call(listStart, payload);
+      const response = yield call(doStart, payload);
       yield put({
         type: 'changeLoading',
         payload: false,
@@ -73,7 +73,22 @@ export default {
         type: 'showMessage',
         payload: response,
         mountNode: mountNode,
-        id: payload.id,
+      });
+    },
+    *doDeploy({ payload,mountNode }, { call, put }) {
+      yield put({
+        type: 'changeLoading',
+        payload: true,
+      });
+      const response = yield call(doDeploy, payload);
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      },);
+      yield put({
+        type: 'showMessage',
+        payload: response,
+        mountNode: mountNode,
       });
     },
   },

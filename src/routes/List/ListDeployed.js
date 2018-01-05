@@ -66,7 +66,7 @@ export default class ListDeployed extends PureComponent {
       <div className={styles.listContent}>
         <div>
           <span>Owner</span>
-          <p></p>
+          <p>&nbsp;</p>
         </div>
         <div>
           <span>部署时间</span>

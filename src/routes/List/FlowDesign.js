@@ -69,11 +69,15 @@ export default class FlowDesign extends PureComponent {
       <div className={styles.listContent}>
         <div>
           <span>Owner</span>
-          <p>{owner}</p>
+          <p>{owner}&nbsp;</p>
         </div>
         <div>
-          <span>创建时间 {moment(createTime).format('YYYY-MM-DD hh:mm')}</span>
-          <p>最后修改 {moment(lastUpdateTime).format('YYYY-MM-DD hh:mm')}</p>
+          <span>创建时间</span>
+          <p>{moment(createTime).format('YYYY-MM-DD hh:mm')}</p>
+        </div>
+        <div>
+          <span>最后修改</span>
+          <p>{moment(lastUpdateTime).format('YYYY-MM-DD hh:mm')}</p>
         </div>
       </div>
     );
@@ -103,10 +107,20 @@ export default class FlowDesign extends PureComponent {
       </Dropdown>
     );
 
+    const deploy = (s,n) => {
+      this.props.dispatch({
+        type: 'list/doDeploy',
+        payload: {
+          id: s,
+        },
+        mountNode:n,
+    })}
+
     return (
       <PageHeaderLayout>
+        <div id="cool">
+        </div>
         <div className={styles.standardList}>
-
 
           <Card
             className={styles.listCard}
@@ -124,7 +138,7 @@ export default class FlowDesign extends PureComponent {
               dataSource={list.pageItems}
               renderItem={item => (
                 <List.Item
-                  actions={[<a>部署</a>, <MoreBtn />]}
+                  actions={[<a onClick={()=>deploy(item.id,document.getElementById('cool'))}>部署</a>, <MoreBtn />]}
                 >
                   <List.Item.Meta
                     avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large" />}
