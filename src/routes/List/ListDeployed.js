@@ -62,7 +62,7 @@ export default class ListDeployed extends PureComponent {
       })}
     };
 
-    const ListContent = ({ data: { owner, createdAt, percent, status, businessId } }) => (
+    const ListContent = ({ data: { businessId, deployment } }) => (
       <div className={styles.listContent}>
         <div>
           <span>Owner</span>
@@ -70,7 +70,7 @@ export default class ListDeployed extends PureComponent {
         </div>
         <div>
           <span>部署时间</span>
-          <p>{moment(createdAt).format('YYYY-MM-DD hh:mm')}</p>
+          <p>{moment(deployment.deploymentTime).format('YYYY-MM-DD hh:mm')}</p>
         </div>
       </div>
     );
@@ -129,7 +129,7 @@ export default class ListDeployed extends PureComponent {
 
                   <List.Item.Meta
                     avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large" />}
-                    title={<a href={item.key}>{item.key}</a>}
+                    title={<a href="href">{item.deployment.name}</a>}
                     description={item.id + '，关联业务 ' + item.businessId}
                   />
                   <ListContent data={item} />
