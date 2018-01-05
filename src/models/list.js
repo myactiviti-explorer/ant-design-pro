@@ -1,5 +1,6 @@
 import { listDeployed,listDesigning,listStart } from '../services/api';
 import Jsonx from '../utils/Jsonx';
+import DCR from '../utils/DealCommonReturn';
 import { Alert } from 'antd';
 import ReactDOM from 'react-dom';
 
@@ -103,9 +104,7 @@ export default {
       };
     },
     showMessage(state, action) {
-      ReactDOM.render(
-        <Alert message={action.id} type="success" showIcon />
-      , action.mountNode);
+      DCR.deal(action.mountNode, action.payload);
       return {
         ...state,
       }
