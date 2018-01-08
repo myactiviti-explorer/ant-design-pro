@@ -122,11 +122,12 @@ export default class FlowDesign extends PureComponent {
         mountNode:n,
     })}
 
-    const showImg = (s,n) => {
+    const showImg = (s,n,t) => {
       let visible = true;
       const ref = <Modal
         width="200"
-        title="流程图概况"
+        title={t}
+        style={{top:30}}
         visible={visible}
         onOk={()=>{ReactDOM.render(null,n);}}
         onCancel={()=>{ReactDOM.render(null,n);}}
@@ -134,12 +135,6 @@ export default class FlowDesign extends PureComponent {
         <img alt="example" src={"/api/listShowImg?id="+s} />
       </Modal>;
       ReactDOM.render(
-        // <Card
-        //   hoverable
-        //   style={{ width: 440, height: 400 }}
-        //   cover={<img alt="example" src={"/api/listShowImg?id="+s} />}
-        // >
-        // </Card>
         <div   width="200">
         {ref}
       </div>
@@ -172,7 +167,8 @@ export default class FlowDesign extends PureComponent {
                 >
                   <List.Item.Meta
                     avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large"
-                      onClick={()=>showImg(item.id,document.getElementById('cool'))}
+                      onClick={()=>showImg(item.id,document.getElementById('cool'),item.name)}
+                      style={{cursor:"pointer"}}
                       title="显图"
                     />}
                     title={<a href={item.href}>{item.name}</a>}

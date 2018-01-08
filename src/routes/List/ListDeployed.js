@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
-import { List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
+import { Modal, List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
@@ -104,19 +104,23 @@ export default class ListDeployed extends PureComponent {
         },
         mountNode:n,
     })}
-    const showImg = () => {
+    const showImg = (s,n,t) => {
+      let visible = true;
+      const ref = <Modal
+        width="200"
+        title={t}
+        style={{top:30}}
+        visible={visible}
+        onOk={()=>{ReactDOM.render(null,n);}}
+        onCancel={()=>{ReactDOM.render(null,n);}}
+      >
+        <img alt="example" src={"/api/listDevelopedImg?id="+s} />
+      </Modal>;
       ReactDOM.render(
-        <Card
-          hoverable
-          style={{ width: 240 }}
-          cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-        >
-          <Meta
-            title="Europe Street beat"
-            description="www.instagram.com"
-          />
-        </Card>
-      , document.getElementById('cool'));
+        <div   width="200">
+        {ref}
+      </div>
+      ,n);
     }
     return (
       <PageHeaderLayout>
@@ -146,7 +150,9 @@ export default class ListDeployed extends PureComponent {
 
                   <List.Item.Meta
                     avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large"
-                    onClick={()=>showImg()}
+                    onClick={()=>showImg(item.id,document.getElementById('cool'),item.deployment.name)}
+                    style={{cursor:"pointer"}}
+                    title="显图"
                   />}
                     title={<a href="href">{item.deployment.name}</a>}
                     description={item.id + '，关联业务 ' + item.businessId}
