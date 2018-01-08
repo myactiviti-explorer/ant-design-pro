@@ -8,10 +8,12 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import styles from './BasicList.less';
 import Jsonx from '../../utils/Jsonx';
 import {prettyDate} from '../../utils/utils';
+import ReactDOM from 'react-dom';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
+const { Meta } = Card;
 
 @connect(state => ({
   list: state.list,
@@ -121,6 +123,21 @@ export default class FlowDesign extends PureComponent {
         mountNode:n,
     })}
 
+    const showImg = () => {
+      ReactDOM.render(
+        <Card
+          hoverable
+          style={{ width: 240 }}
+          cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+        >
+          <Meta
+            title="Europe Street beat"
+            description="www.instagram.com"
+          />
+        </Card>
+      , document.getElementById('cool'));
+    }
+
     return (
       <PageHeaderLayout>
         <div id="cool">
@@ -146,7 +163,9 @@ export default class FlowDesign extends PureComponent {
                   actions={[<a onClick={()=>deploy(item.id,document.getElementById('cool'))}>部署</a>, <MoreBtn />]}
                 >
                   <List.Item.Meta
-                    avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large" />}
+                    avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large"
+                      onClick={()=>showImg()}
+                    />}
                     title={<a href={item.href}>{item.name}</a>}
                     description={!!Jsonx.format(item.metaInfo)?Jsonx.format(item.metaInfo).name:null + '，关联业务 ' + item.businessId}
                   />
