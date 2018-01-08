@@ -1,9 +1,9 @@
 import { listDeployed,listDesigning,doStart,doDeploy } from '../services/api';
 import Jsonx from '../utils/Jsonx';
 import DCR from '../utils/DealCommonReturn';
-import { Alert } from 'antd';
+import { Alert,Card } from 'antd';
 import ReactDOM from 'react-dom';
-
+const { Meta } = Card;
 export default {
   namespace: 'list',
 

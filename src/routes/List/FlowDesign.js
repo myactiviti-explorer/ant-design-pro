@@ -123,19 +123,22 @@ export default class FlowDesign extends PureComponent {
         mountNode:n,
     })}
 
-    const showImg = () => {
+    const showImg = (s,n) => {
       ReactDOM.render(
         <Card
           hoverable
-          style={{ width: 240 }}
-          cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+          style={{ width: 440, height: 400 }}
+          cover={<img alt="example" src={"/api/listShowImg?id="+s} />}
         >
-          <Meta
-            title="Europe Street beat"
-            description="www.instagram.com"
-          />
         </Card>
-      , document.getElementById('cool'));
+      , n);
+      // this.props.dispatch({
+      //   type: 'list/showImg',
+      //   payload: {
+      //     id: s,
+      //   },
+      //   mountNode:n,
+      // })
     }
 
     return (
@@ -164,7 +167,7 @@ export default class FlowDesign extends PureComponent {
                 >
                   <List.Item.Meta
                     avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large"
-                      onClick={()=>showImg()}
+                      onClick={()=>showImg(item.id,document.getElementById('cool'))}
                     />}
                     title={<a href={item.href}>{item.name}</a>}
                     description={!!Jsonx.format(item.metaInfo)?Jsonx.format(item.metaInfo).name:null + '，关联业务 ' + item.businessId}
