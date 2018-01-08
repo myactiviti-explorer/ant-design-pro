@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
-import { List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
+import { Modal, List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
@@ -9,7 +9,6 @@ import styles from './BasicList.less';
 import Jsonx from '../../utils/Jsonx';
 import {prettyDate} from '../../utils/utils';
 import ReactDOM from 'react-dom';
-
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
@@ -124,21 +123,27 @@ export default class FlowDesign extends PureComponent {
     })}
 
     const showImg = (s,n) => {
+      let visible = true;
+      const ref = <Modal
+        width="200"
+        title="流程图概况"
+        visible={visible}
+        onOk={()=>{ReactDOM.render(null,n);}}
+        onCancel={()=>{ReactDOM.render(null,n);}}
+      >
+        <img alt="example" src={"/api/listShowImg?id="+s} />
+      </Modal>;
       ReactDOM.render(
-        <Card
-          hoverable
-          style={{ width: 440, height: 400 }}
-          cover={<img alt="example" src={"/api/listShowImg?id="+s} />}
-        >
-        </Card>
-      , n);
-      // this.props.dispatch({
-      //   type: 'list/showImg',
-      //   payload: {
-      //     id: s,
-      //   },
-      //   mountNode:n,
-      // })
+        // <Card
+        //   hoverable
+        //   style={{ width: 440, height: 400 }}
+        //   cover={<img alt="example" src={"/api/listShowImg?id="+s} />}
+        // >
+        // </Card>
+        <div   width="200">
+        {ref}
+      </div>
+      ,n);
     }
 
     return (
@@ -168,6 +173,7 @@ export default class FlowDesign extends PureComponent {
                   <List.Item.Meta
                     avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large"
                       onClick={()=>showImg(item.id,document.getElementById('cool'))}
+                      title="显图"
                     />}
                     title={<a href={item.href}>{item.name}</a>}
                     description={!!Jsonx.format(item.metaInfo)?Jsonx.format(item.metaInfo).name:null + '，关联业务 ' + item.businessId}
