@@ -7,6 +7,7 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 import styles from './BasicList.less';
 import Jsonx from '../../utils/Jsonx';
+import {prettyDate} from '../../utils/utils';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -73,11 +74,15 @@ export default class FlowDesign extends PureComponent {
         </div>
         <div>
           <span>创建时间</span>
-          <p>{moment(createTime).format('YYYY-MM-DD hh:mm')}</p>
+          <p title={moment(createTime).format('YYYY-MM-DD hh:mm')}>
+            {prettyDate(createTime)}
+          </p>
         </div>
         <div>
           <span>最后修改</span>
-          <p>{moment(lastUpdateTime).format('YYYY-MM-DD hh:mm')}</p>
+          <p title={moment(lastUpdateTime).format('YYYY-MM-DD hh:mm')}>
+            {prettyDate(lastUpdateTime)}
+          </p>
         </div>
       </div>
     );

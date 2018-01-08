@@ -49,6 +49,18 @@ export function getTimeDistance(type) {
   }
 }
 
+export function prettyDate(timeStr){
+  const now = moment(new Date());
+  const time = moment(timeStr);
+  let ret = '';
+  if((now.date()==time.date()) && (now.month()==time.month()) && (now.year()==time.year())){
+    ret = time.format('hh:mm')
+  }else{
+    ret = time.format('YY-MM-DD')
+  }
+  return ret;
+}
+
 export function getPlainNode(nodeList, parentPath = '') {
   const arr = [];
   nodeList.forEach((node) => {

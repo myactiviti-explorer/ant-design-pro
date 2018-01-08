@@ -6,7 +6,7 @@ import { List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, M
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 import styles from './BasicList.less';
-
+import {prettyDate} from '../../utils/utils';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
@@ -70,7 +70,9 @@ export default class ListDeployed extends PureComponent {
         </div>
         <div>
           <span>部署时间</span>
-          <p>{moment(deployment.deploymentTime).format('YYYY-MM-DD hh:mm')}</p>
+          <p title={moment(deployment.deploymentTime).format('YYYY-MM-DD hh:mm')}>
+            {prettyDate(deployment.deploymentTime)}
+          </p>
         </div>
       </div>
     );
@@ -110,7 +112,7 @@ export default class ListDeployed extends PureComponent {
           <Card
             className={styles.listCard}
             bordered={false}
-            title="流程列表"
+            title="已部署流程"
             style={{ marginTop: 24 }}
             bodyStyle={{ padding: '0 32px 40px 32px' }}
             extra={extraContent}
