@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
-import { Modal, List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
+import { Upload, message, Modal, List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
@@ -41,7 +41,7 @@ export default class FlowDesign extends PureComponent {
       <div className={styles.extraContent}>
         <RadioGroup defaultValue="all">
           <RadioButton value="new">新建</RadioButton>
-          <RadioButton value="import">导入</RadioButton>
+          <RadioButton value="import"><Upload><Icon>导入</Icon></Upload></RadioButton>
         </RadioGroup>
         <Search
           className={styles.extraContentSearch}
@@ -50,7 +50,6 @@ export default class FlowDesign extends PureComponent {
         />
       </div>
     );
-
     const paginationProps = {
       showSizeChanger: true,
       showQuickJumper: true,
