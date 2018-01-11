@@ -36,12 +36,16 @@ export default class FlowDesign extends PureComponent {
         {bordered && <em />}
       </div>
     );
-
     const extraContent = (
       <div className={styles.extraContent}>
         <RadioGroup defaultValue="all">
-          <RadioButton value="new">新建</RadioButton>
-          <RadioButton value="import"><Upload><Icon>导入</Icon></Upload></RadioButton>
+          <Button value="new">新建</Button>
+          &nbsp;&nbsp;
+          <Upload
+            action="/api/uploadProcessFile"
+            name="Filedata"
+            showUploadList={false}
+            ><Button><Icon>导入</Icon></Button></Upload>
         </RadioGroup>
         <Search
           className={styles.extraContentSearch}
