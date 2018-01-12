@@ -102,7 +102,6 @@ export default class ListDeployed extends PureComponent {
         payload: {
           id: s,
         },
-        mountNode:n,
     })}
     const showImg = (s,n,t) => {
       let visible = true;

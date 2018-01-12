@@ -27,7 +27,6 @@ export default class FlowDesign extends PureComponent {
       },
     });
   }
-
   render() {
     const { list: { list, loading } } = this.props;
     const Info = ({ title, value, bordered }) => (
@@ -105,25 +104,27 @@ export default class FlowDesign extends PureComponent {
       </div>
     );
 
-    const menu = (
-      <Menu>
-        <Menu.Item>
-          <a>编辑</a>
-        </Menu.Item>
-        <Menu.Item>
-          <a>复制</a>
-        </Menu.Item>
-        <Menu.Item>
-          <a>删除</a>
-        </Menu.Item>
-        <Menu.Item>
-          <a>导出</a>
-        </Menu.Item>
-      </Menu>
-    );
+    const MyMenu = ({data}) => {
+      return(
+        <Menu >
+          <Menu.Item key="1" >
+            <a onClick={()=>{console.log('1:'+data)}}>编辑</a>
+          </Menu.Item>
+          <Menu.Item key="2" >
+            <a onClick={()=>{console.log('2:'+data)}}>复制</a>
+          </Menu.Item>
+          <Menu.Item key="3" >
+            <a onClick={()=>{console.log('3:'+data)}}>删除</a>
+          </Menu.Item>
+          <Menu.Item key="4" >
+            <a onClick={()=>{console.log('4:'+data)}}>导出</a>
+          </Menu.Item>
+        </Menu>
+      )
+    }
 
-    const MoreBtn = () => (
-      <Dropdown overlay={menu}>
+    const MoreBtn = (props) => (
+      <Dropdown overlay={<MyMenu data={props.name.id}/>}>
         <a>
           更多 <Icon type="down" />
         </a>
@@ -136,7 +137,14 @@ export default class FlowDesign extends PureComponent {
         payload: {
           id: s,
         },
-        mountNode:n,
+    })}
+
+    const copy = (s,n) => {
+      this.props.dispatch({
+        type: 'list/doCopy',
+        payload: {
+          id: s,
+        },
     })}
 
     const showImg = (s,n,t) => {
@@ -180,7 +188,10 @@ export default class FlowDesign extends PureComponent {
               dataSource={list.pageItems}
               renderItem={item => (
                 <List.Item
-                  actions={[<a onClick={()=>deploy(item.id,null)}>部署</a>, <MoreBtn />]}
+                  actions={[
+                    <a onClick={()=>deploy(item.id,null)}>部署</a>,
+                    <MoreBtn name={item} />]
+                  }
                 >
                   <List.Item.Meta
                     avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large"
