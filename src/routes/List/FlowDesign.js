@@ -50,6 +50,7 @@ export default class FlowDesign extends PureComponent {
               (info)=>{
                 if (info.file.status === 'done') {
                   DCR.deal(info.file.response)
+                  paginationProps.onChange(paginationProps.current)
                 }else if(info.file.status === 'error'){
                   notification.error({
                     message: `请求失败`,
