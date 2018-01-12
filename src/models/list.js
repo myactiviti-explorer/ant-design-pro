@@ -119,7 +119,7 @@ export default {
       };
     },
     showMessage(state, action) {
-      DCR.deal(action.mountNode, action.payload);
+      DCR.deal(action.payload);
       return {
         ...state,
       }

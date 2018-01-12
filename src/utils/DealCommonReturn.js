@@ -1,8 +1,11 @@
 import { notification, Alert } from 'antd';
 import ReactDOM from 'react-dom';
-function deal(mountNode,payload) {
-  let type = "";
-  if(payload.RetCode == null){
+function deal(payload) {
+  if(payload == null || payload.RetCode == null){
+    notification.error({
+      message: `请求失败`,
+      description: `无回调信息`,
+    });
     return;
   }
   if(payload.RetCode == "1"){

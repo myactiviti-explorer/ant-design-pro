@@ -9,6 +9,7 @@ import styles from './BasicList.less';
 import Jsonx from '../../utils/Jsonx';
 import {prettyDate} from '../../utils/utils';
 import ReactDOM from 'react-dom';
+import DCR from '../../utils/DealCommonReturn';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
@@ -45,6 +46,18 @@ export default class FlowDesign extends PureComponent {
             action="/api/uploadProcessFile"
             name="Filedata"
             showUploadList={false}
+            onChange={
+              (info)=>{
+                if (info.file.status === 'done') {
+                  DCR.deal(info.file.response)
+                }else if(info.file.status === 'error'){
+                  notification.error({
+                    message: `请求失败`,
+                    description: `上传未成功`,
+                  });
+                }
+              }
+            }
             ><Button><Icon>导入</Icon></Button></Upload>
         </RadioGroup>
         <Search
