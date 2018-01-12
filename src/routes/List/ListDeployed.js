@@ -145,12 +145,12 @@ export default class ListDeployed extends PureComponent {
 
               renderItem={item => (
                 <List.Item
-                  actions={[<a onClick={()=>start(item.id,document.getElementById('cool'))}>启动</a>, <MoreBtn />]}
+                  actions={[<a onClick={()=>start(item.id)}>启动</a>, <MoreBtn />]}
                 >
 
                   <List.Item.Meta
                     avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large"
-                    onClick={()=>showImg(item.id,document.getElementById('cool'),item.deployment.name)}
+                    onClick={()=>showImg(item.id,document.getElementById('cool'),item.deployment==null?"":item.deployment.name)}
                     style={{cursor:"pointer"}}
                     title="显图"
                   />}

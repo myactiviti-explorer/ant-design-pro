@@ -1,4 +1,4 @@
-import { Alert } from 'antd';
+import { notification, Alert } from 'antd';
 import ReactDOM from 'react-dom';
 function deal(mountNode,payload) {
   let type = "";
@@ -6,13 +6,16 @@ function deal(mountNode,payload) {
     return;
   }
   if(payload.RetCode == "1"){
-    type = "success";
+    notification.success({
+      message: `请求成功`,
+      description: `${payload.RetVal}`,
+    });
   } else if(payload.RetCode == "0" || payload.RetCode == "2"){
-    type = "error";
+    notification.error({
+      message: `请求失败 原因: ${payload.RetCode == "0"?"工作流内部错误":"业务逻辑错误"}`,
+      description: `${payload.RetVal}`,
+    });
   }
-  ReactDOM.render(
-    <Alert message={payload.RetVal} type={type} showIcon />
-  , mountNode);
 }
 
 export default {

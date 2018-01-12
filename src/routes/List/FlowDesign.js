@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
-import { Upload, message, Modal, List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
+import { notification, Upload, message, Modal, List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
@@ -166,7 +166,7 @@ export default class FlowDesign extends PureComponent {
               dataSource={list.pageItems}
               renderItem={item => (
                 <List.Item
-                  actions={[<a onClick={()=>deploy(item.id,document.getElementById('cool'))}>部署</a>, <MoreBtn />]}
+                  actions={[<a onClick={()=>deploy(item.id,null)}>部署</a>, <MoreBtn />]}
                 >
                   <List.Item.Meta
                     avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" shape="square" size="large"
