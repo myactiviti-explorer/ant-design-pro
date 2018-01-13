@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
-import { notification, Upload, message, Modal, List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
+import { Form, notification, Upload, message, Modal, List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
@@ -12,9 +12,9 @@ import ReactDOM from 'react-dom';
 import DCR from '../../utils/DealCommonReturn';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
-const { Search } = Input;
+const { Search,TextArea } = Input;
 const { Meta } = Card;
-
+const FormItem = Form.Item;
 @connect(state => ({
   list: state.list,
 }))
@@ -36,6 +36,17 @@ export default class FlowDesign extends PureComponent {
         {bordered && <em />}
       </div>
     );
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 7 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 12 },
+        md: { span: 10 },
+      },
+    };
     const extraContent = (
       <div className={styles.extraContent}>
         <RadioGroup defaultValue="all">
@@ -106,32 +117,32 @@ export default class FlowDesign extends PureComponent {
 
     const MyMenu = ({data}) => {
       return(
-        <Menu >
-          <Menu.Item key="1" >
-            <a onClick={()=>{console.log('1:'+data)}}>编辑</a>
+        <Menu selectable={false} style={{marginLeft:-15, border:0}}>
+          <Menu.Item key="1">
+            <a onClick={()=>{alert('1:'+data.id)}}>编辑</a>
           </Menu.Item>
           <Menu.Item key="2" >
-            <a onClick={()=>{console.log('2:'+data)}}>复制</a>
+            <a onClick={()=>showCopy(data,document.getElementById('cool'))}>复制</a>
           </Menu.Item>
           <Menu.Item key="3" >
-            <a onClick={()=>{console.log('3:'+data)}}>删除</a>
+            <a onClick={()=>{alert('3:'+data.id)}}>删除</a>
           </Menu.Item>
           <Menu.Item key="4" >
-            <a onClick={()=>{console.log('4:'+data)}}>导出</a>
+            <a onClick={()=>{alert('4:'+data.id)}}>导出</a>
           </Menu.Item>
         </Menu>
       )
     }
 
     const MoreBtn = (props) => (
-      <Dropdown overlay={<MyMenu data={props.name.id}/>}>
+      <Dropdown overlay={<MyMenu data={props.process}/>}>
         <a>
           更多 <Icon type="down" />
         </a>
       </Dropdown>
     );
 
-    const deploy = (s,n) => {
+    const deploy = (s) => {
       this.props.dispatch({
         type: 'list/doDeploy',
         payload: {
@@ -139,7 +150,8 @@ export default class FlowDesign extends PureComponent {
         },
     })}
 
-    const copy = (s,n) => {
+    const copy = (s) => {
+      alert(s)
       this.props.dispatch({
         type: 'list/doCopy',
         payload: {
@@ -161,6 +173,41 @@ export default class FlowDesign extends PureComponent {
       </Modal>;
       ReactDOM.render(
         <div   width="200">
+        {ref}
+      </div>
+      ,n);
+    }
+
+    const showCopy = (s,n) => {
+      let visible = true;
+      const ref = <Modal
+        title={"复制流程 - "+s.name}
+        style={{top:30}}
+        visible={visible}
+        onOk={()=>{
+          copy(s.id);
+          ReactDOM.render(null,n);
+        }}
+        onCancel={()=>{ReactDOM.render(null,n);}}
+      >
+        <Card bordered={false}>
+          <Form hideRequiredMark style={{ marginTop: 8 }} >
+            <FormItem {...formItemLayout}
+              label="名称"
+            >
+              <Input placeholder="新复制模型的名称" style={{width: 230}}/>
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="描述"
+            >
+              <TextArea style={{ minHeight: 32,minWidth: 230 }} placeholder="请输入对新模型的描述" rows={4} />
+            </FormItem>
+          </Form>
+        </Card>
+      </Modal>;
+      ReactDOM.render(
+        <div width="200">
         {ref}
       </div>
       ,n);
@@ -189,8 +236,8 @@ export default class FlowDesign extends PureComponent {
               renderItem={item => (
                 <List.Item
                   actions={[
-                    <a onClick={()=>deploy(item.id,null)}>部署</a>,
-                    <MoreBtn name={item} />]
+                    <a onClick={()=>deploy(item.id)}>部署</a>,
+                    <MoreBtn process={item} />]
                   }
                 >
                   <List.Item.Meta
