@@ -72,6 +72,10 @@ export async function doDeploy(params) {
   return request(`/api/doDeploy?${stringify(params)}`);
 }
 
+export async function doCopy(params) {
+  return request(`/api/copyProcess?${stringify(params)}`);
+}
+
 export async function fakeAccountLogin(params) {
   return request('/api/login/account', {
     method: 'POST',

@@ -150,13 +150,15 @@ export default class FlowDesign extends PureComponent {
         },
     })}
 
-    const copy = (s) => {
-      alert(s)
+    const copy = (s,n,d) => {
       this.props.dispatch({
         type: 'list/doCopy',
         payload: {
           id: s,
+          name:n,
+          description:d,
         },
+        callback:()=>{paginationProps.onChange(paginationProps.current)},
     })}
 
     const showImg = (s,n,t) => {
@@ -185,8 +187,16 @@ export default class FlowDesign extends PureComponent {
         style={{top:30}}
         visible={visible}
         onOk={()=>{
-          copy(s.id);
-          ReactDOM.render(null,n);
+          if((document.getElementById('copyName').value).trim()==""){
+            document.getElementById('copyName').focus()
+            notification.error({
+              message: `请求失败`,
+              description: `新复制模型名称为空`,
+            });
+          }else{
+            copy(s.id,document.getElementById('copyName').value,document.getElementById('copyDescription').value);
+            ReactDOM.render(null,n);
+          }
         }}
         onCancel={()=>{ReactDOM.render(null,n);}}
       >
@@ -194,13 +204,14 @@ export default class FlowDesign extends PureComponent {
           <Form hideRequiredMark style={{ marginTop: 8, minWidth:200 }} >
             <FormItem {...formItemLayout} style={{ width: 200 }}
               label="名称"
+              help="不能为空"
             >
-              <Input placeholder="新复制模型的名称" style={{width: 340}}/>
+              <Input placeholder="新复制模型的名称" style={{width: 340}} id="copyName"/>
             </FormItem>
             <FormItem {...formItemLayout} style={{ width: 200 }}
               label="描述"
             >
-              <TextArea style={{ minHeight: 100,minWidth: 340 }} placeholder="请输入对新模型的描述" rows={4} />
+              <TextArea style={{ minHeight: 100,minWidth: 340 }} placeholder="请输入对新模型的描述" rows={4} id="copyDescription"/>
             </FormItem>
           </Form>
         </Card>
@@ -246,7 +257,7 @@ export default class FlowDesign extends PureComponent {
                       title="显图"
                     />}
                     title={<a href={item.href}>{item.name}</a>}
-                    description={!!Jsonx.format(item.metaInfo)?Jsonx.format(item.metaInfo).name:null + '，关联业务 ' + item.businessId}
+                    description={!!Jsonx.format(item.metaInfo)?Jsonx.format(item.metaInfo).description:null + '，关联业务 ' + item.businessId}
                   />
                   <ListContent data={item} />
                 </List.Item>

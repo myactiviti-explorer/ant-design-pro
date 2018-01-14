@@ -1,4 +1,4 @@
-import { listDeployed,listDesigning,doStart,doDeploy } from '../services/api';
+import { listDeployed,listDesigning,doStart,doDeploy,doCopy } from '../services/api';
 import Jsonx from '../utils/Jsonx';
 import DCR from '../utils/DealCommonReturn';
 import { Alert,Card } from 'antd';
@@ -91,6 +91,23 @@ export default {
         mountNode: mountNode,
       });
     },
+    *doCopy({ payload,callback }, { call, put }) {
+      callback()
+      yield put({
+        type: 'changeLoading',
+        payload: true,
+      });
+      const response = yield call(doCopy, payload);
+      yield put({
+        type: 'showMessage',
+        payload: response,
+        callback: callback,
+      });
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      },);
+    },
   },
 
   reducers: {
@@ -120,6 +137,9 @@ export default {
     },
     showMessage(state, action) {
       DCR.deal(action.payload);
+      if(action.callback!=null){
+        (action.callback)()
+      }
       return {
         ...state,
       }
