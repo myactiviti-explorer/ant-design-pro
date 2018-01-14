@@ -191,17 +191,16 @@ export default class FlowDesign extends PureComponent {
         onCancel={()=>{ReactDOM.render(null,n);}}
       >
         <Card bordered={false}>
-          <Form hideRequiredMark style={{ marginTop: 8 }} >
-            <FormItem {...formItemLayout}
+          <Form hideRequiredMark style={{ marginTop: 8, minWidth:200 }} >
+            <FormItem {...formItemLayout} style={{ width: 200 }}
               label="名称"
             >
-              <Input placeholder="新复制模型的名称" style={{width: 230}}/>
+              <Input placeholder="新复制模型的名称" style={{width: 340}}/>
             </FormItem>
-            <FormItem
-              {...formItemLayout}
+            <FormItem {...formItemLayout} style={{ width: 200 }}
               label="描述"
             >
-              <TextArea style={{ minHeight: 32,minWidth: 230 }} placeholder="请输入对新模型的描述" rows={4} />
+              <TextArea style={{ minHeight: 100,minWidth: 340 }} placeholder="请输入对新模型的描述" rows={4} />
             </FormItem>
           </Form>
         </Card>
