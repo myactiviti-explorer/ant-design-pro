@@ -162,7 +162,14 @@ export default class FlowDesign extends PureComponent {
         },
         callback:()=>{paginationProps.onChange(paginationProps.current)},
     })}
-
+    const deleteModel = (s) => {
+      this.props.dispatch({
+        type: 'list/doDelete',
+        payload: {
+          id: s,
+        },
+        callback:()=>{paginationProps.onChange(paginationProps.current)},
+    })}
     const showImg = (s,n,t) => {
       let visible = true;
       const ref = <Modal
@@ -180,9 +187,6 @@ export default class FlowDesign extends PureComponent {
         {ref}
       </div>
       ,n);
-    }
-    const deleteModel = (s) => {
-      alert(s)
     }
     const showCopy = (s,n) => {
       let visible = true;

@@ -76,6 +76,10 @@ export async function doCopy(params) {
   return request(`/api/copyProcess?${stringify(params)}`);
 }
 
+export async function doDelete(params) {
+  return request(`/api/deleteModel?${stringify(params)}`);
+}
+
 export async function fakeAccountLogin(params) {
   return request('/api/login/account', {
     method: 'POST',

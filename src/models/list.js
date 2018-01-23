@@ -1,4 +1,4 @@
-import { listDeployed,listDesigning,doStart,doDeploy,doCopy } from '../services/api';
+import { listDeployed,listDesigning,doStart,doDeploy,doCopy,doDelete } from '../services/api';
 import Jsonx from '../utils/Jsonx';
 import DCR from '../utils/DealCommonReturn';
 import { Alert,Card } from 'antd';
@@ -68,7 +68,7 @@ export default {
       yield put({
         type: 'changeLoading',
         payload: false,
-      },);
+      });
       yield put({
         type: 'showMessage',
         payload: response,
@@ -92,7 +92,6 @@ export default {
       });
     },
     *doCopy({ payload,callback }, { call, put }) {
-      callback()
       yield put({
         type: 'changeLoading',
         payload: true,
@@ -106,8 +105,24 @@ export default {
       yield put({
         type: 'changeLoading',
         payload: false,
-      },);
+      });
     },
+    *doDelete({ payload,callback }, { call, put }) {
+      yield put({
+        type: 'changeLoading',
+        payload: true,
+      });
+      const response = yield call(doDelete, payload);
+      yield put({
+        type: 'showMessage',
+        payload: response,
+        callback: callback,
+      });
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      });
+    }
   },
 
   reducers: {
