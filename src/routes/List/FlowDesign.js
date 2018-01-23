@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
-import { Form, notification, Upload, message, Modal, List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
+import { Popconfirm, Form, notification, Upload, message, Modal, List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
@@ -125,7 +125,9 @@ export default class FlowDesign extends PureComponent {
             <a onClick={()=>showCopy(data,document.getElementById('cool'))}>复制</a>
           </Menu.Item>
           <Menu.Item key="3" >
-            <a onClick={()=>{alert('3:'+data.id)}}>删除</a>
+            <Popconfirm placement="left" overlayStyle={{paddingRight:20}} title={"您希望删除模型 "+data.name+" 么？"} onConfirm={()=>{deleteModel(data.id)}} okText="是" cancelText="否">
+              <a>删除</a>
+            </Popconfirm>
           </Menu.Item>
           <Menu.Item key="4" >
             <a onClick={()=>{alert('4:'+data.id)}}>导出</a>
@@ -179,7 +181,9 @@ export default class FlowDesign extends PureComponent {
       </div>
       ,n);
     }
-
+    const deleteModel = (s) => {
+      alert(s)
+    }
     const showCopy = (s,n) => {
       let visible = true;
       const ref = <Modal
