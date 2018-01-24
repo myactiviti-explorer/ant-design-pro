@@ -130,7 +130,7 @@ export default class FlowDesign extends PureComponent {
             </Popconfirm>
           </Menu.Item>
           <Menu.Item key="4" >
-            <a onClick={()=>{alert('4:'+data.id)}}>导出</a>
+            <a onClick={()=>exportModel(data.id)}>导出</a>
           </Menu.Item>
         </Menu>
       )
@@ -170,6 +170,9 @@ export default class FlowDesign extends PureComponent {
         },
         callback:()=>{paginationProps.onChange(paginationProps.current)},
     })}
+    const exportModel = (s) => {
+      document.location.href="/api/exportModel?id="+s
+    }
     const showImg = (s,n,t) => {
       let visible = true;
       const ref = <Modal
