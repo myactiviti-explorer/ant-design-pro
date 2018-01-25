@@ -48,6 +48,7 @@ export default class FlowDesign extends PureComponent {
         md: { span: 10 },
       },
     };
+    const search = document.getElementById('search')
     const extraContent = (
       <div className={styles.extraContent}>
         <RadioGroup defaultValue="all">
@@ -73,9 +74,13 @@ export default class FlowDesign extends PureComponent {
             ><Button><Icon>导入</Icon></Button></Upload>
         </RadioGroup>
         <Search
+          id="search"
           className={styles.extraContentSearch}
           placeholder="请输入"
-          onSearch={() => ({})}
+          enterButton
+          onSearch={() => {
+            showList(list.pageNo,list.pageSize)
+          }}
         />
       </div>
     );
@@ -87,20 +92,12 @@ export default class FlowDesign extends PureComponent {
       current:list.pageNo,
       total:list.totalCount,
       pageSizeOptions:['5','10','20','30','40'],
-      onChange:(current, pageSize)=>{this.props.dispatch({
-        type: 'list/designing',
-        payload: {
-          count: current,
-          pageSize: pageSize,
-        },
-      })},
-      onShowSizeChange:(page, pageSize)=>{this.props.dispatch({
-        type: 'list/designing',
-        payload: {
-          count: 1,
-          pageSize: pageSize,
-        },
-      })},
+      onChange:(current, pageSize)=>{
+        showList(current, pageSize)
+      },
+      onShowSizeChange:(page, pageSize)=>{
+        showList(1, pageSize)
+      },
     };
 
     const ListContent = ({ data: { owner, createTime, lastUpdateTime, percent, status, businessId } }) => (
@@ -152,6 +149,17 @@ export default class FlowDesign extends PureComponent {
         </a>
       </Dropdown>
     );
+
+    const showList = (pageNo, pageSize) => {
+      this.props.dispatch({
+        type: 'list/designing',
+        payload: {
+          count: pageNo,
+          pageSize: pageSize,
+          name: search==null?"":search.value,
+        },
+      })
+    }
 
     const deploy = (s) => {
       this.props.dispatch({
