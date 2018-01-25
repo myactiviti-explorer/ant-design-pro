@@ -61,7 +61,7 @@ export default class FlowDesign extends PureComponent {
               (info)=>{
                 if (info.file.status === 'done') {
                   DCR.deal(info.file.response)
-                  paginationProps.onChange(paginationProps.current)
+                  paginationProps.onChange(paginationProps.current,paginationProps.pageSize)
                 }else if(info.file.status === 'error'){
                   notification.error({
                     message: `请求失败`,
@@ -94,7 +94,7 @@ export default class FlowDesign extends PureComponent {
           pageSize: pageSize,
         },
       })},
-      onShowSizeChange:(current, pageSize)=>{this.props.dispatch({
+      onShowSizeChange:(page, pageSize)=>{this.props.dispatch({
         type: 'list/designing',
         payload: {
           count: 1,
@@ -169,7 +169,7 @@ export default class FlowDesign extends PureComponent {
           name:n,
           description:d,
         },
-        callback:()=>{paginationProps.onChange(paginationProps.current)},
+        callback:()=>{paginationProps.onChange(paginationProps.current,paginationProps.pageSize)},
     })}
     const deleteModel = (s) => {
       this.props.dispatch({
@@ -177,7 +177,7 @@ export default class FlowDesign extends PureComponent {
         payload: {
           id: s,
         },
-        callback:()=>{paginationProps.onChange(paginationProps.current)},
+        callback:()=>{paginationProps.onChange(paginationProps.current,paginationProps.pageSize)},
     })}
     const exportModel = (s) => {
       document.location.href="/api/exportModel?id="+s

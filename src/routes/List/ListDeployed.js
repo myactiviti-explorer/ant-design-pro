@@ -22,6 +22,7 @@ export default class ListDeployed extends PureComponent {
       type: 'list/deployed',
       payload: {
         count: 1,
+        pageSize: 5,
       },
     });
   }
@@ -50,17 +51,25 @@ export default class ListDeployed extends PureComponent {
     const paginationProps = {
       showSizeChanger: true,
       showQuickJumper: true,
-      pageSize: 5,
-      total: 50,
+      pageSize:list2.pageSize==null?5:list2.pageSize,
       defaultCurrent:1,
       current:list2.pageNo,
       total:list2.totalCount,
-      onChange:(e)=>{this.props.dispatch({
+      pageSizeOptions:['5','10','20','30','40'],
+      onChange:(current, pageSize)=>{this.props.dispatch({
         type: 'list/deployed',
         payload: {
-          count: e,
+          count: current,
+          pageSize: pageSize,
         },
-      })}
+      })},
+      onShowSizeChange:(page, pageSize)=>{this.props.dispatch({
+        type: 'list/deployed',
+        payload: {
+          count: 1,
+          pageSize: pageSize,
+        },
+      })},
     };
 
     const ListContent = ({ data: { businessId, deployment } }) => (
