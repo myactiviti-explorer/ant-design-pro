@@ -24,6 +24,7 @@ export default class FlowDesign extends PureComponent {
       type: 'list/designing',
       payload: {
         count: 1,
+        pageSize: 5,
       },
     });
   }
@@ -81,17 +82,25 @@ export default class FlowDesign extends PureComponent {
     const paginationProps = {
       showSizeChanger: true,
       showQuickJumper: true,
-      pageSize: 5,
-      total: 50,
+      pageSize:list.pageSize==null?5:list.pageSize,
       defaultCurrent:1,
       current:list.pageNo,
       total:list.totalCount,
-      onChange:(e)=>{this.props.dispatch({
+      pageSizeOptions:['5','10','20','30','40'],
+      onChange:(current, pageSize)=>{this.props.dispatch({
         type: 'list/designing',
         payload: {
-          count: e,
+          count: current,
+          pageSize: pageSize,
         },
-      })}
+      })},
+      onShowSizeChange:(current, pageSize)=>{this.props.dispatch({
+        type: 'list/designing',
+        payload: {
+          count: 1,
+          pageSize: pageSize,
+        },
+      })},
     };
 
     const ListContent = ({ data: { owner, createTime, lastUpdateTime, percent, status, businessId } }) => (
