@@ -76,7 +76,7 @@ export default class FlowDesign extends PureComponent {
         <Search
           id="search"
           className={styles.extraContentSearch}
-          placeholder="请输入"
+          placeholder="请输入模型名称"
           enterButton
           onSearch={() => {
             showList(list.pageNo,list.pageSize)

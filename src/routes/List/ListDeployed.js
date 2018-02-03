@@ -36,14 +36,18 @@ export default class ListDeployed extends PureComponent {
         {bordered && <em />}
       </div>
     );
-
+    const search = document.getElementById('search')
     const extraContent = (
       <div className={styles.extraContent}>
 
         <Search
+          id="search"
           className={styles.extraContentSearch}
-          placeholder="请输入"
-          onSearch={() => ({})}
+          placeholder="请输入流程名称"
+          enterButton
+          onSearch={() => {
+            showList(list2.pageNo,list2.pageSize)
+          }}
         />
       </div>
     );
@@ -56,20 +60,12 @@ export default class ListDeployed extends PureComponent {
       current:list2.pageNo,
       total:list2.totalCount,
       pageSizeOptions:['5','10','20','30','40'],
-      onChange:(current, pageSize)=>{this.props.dispatch({
-        type: 'list/deployed',
-        payload: {
-          count: current,
-          pageSize: pageSize,
-        },
-      })},
-      onShowSizeChange:(page, pageSize)=>{this.props.dispatch({
-        type: 'list/deployed',
-        payload: {
-          count: 1,
-          pageSize: pageSize,
-        },
-      })},
+      onChange:(current, pageSize)=>{
+        showList(current, pageSize)
+      },
+      onShowSizeChange:(page, pageSize)=>{
+        showList(1, pageSize)
+      },
     };
 
     const ListContent = ({ data: { businessId, deployment } }) => (
@@ -105,6 +101,16 @@ export default class ListDeployed extends PureComponent {
         </a>
       </Dropdown>
     );
+    const showList = (pageNo, pageSize) => {
+      this.props.dispatch({
+        type: 'list/deployed',
+        payload: {
+          count: pageNo,
+          pageSize: pageSize,
+          name: search==null?"":search.value,
+        },
+      })
+    }
     const start = (s,n) => {
       this.props.dispatch({
         type: 'list/start',
@@ -162,8 +168,8 @@ export default class ListDeployed extends PureComponent {
                     style={{cursor:"pointer"}}
                     title="显图"
                   />}
-                    title={<a href="href">{item.deployment.name}</a>}
-                    description={item.id + '，关联业务 ' + item.businessId}
+                    title={<a href="href">{item.key}</a>}
+                    description={item.deployment.name + '，关联业务 ' + item.businessId}
                   />
                   <ListContent data={item} />
                 </List.Item>
