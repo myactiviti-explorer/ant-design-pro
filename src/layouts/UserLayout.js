@@ -52,7 +52,7 @@ class UserLayout extends React.PureComponent {
                 <span className={styles.title}>myActiviti</span>
               </Link>
             </div>
-            <div className={styles.desc}>myActiviti</div>
+            <div className={styles.desc}>思而后行</div>
           </div>
           {
             getRouteData('UserLayout').map(item =>
@@ -66,7 +66,7 @@ class UserLayout extends React.PureComponent {
               )
             )
           }
-          
+
         </div>
       </DocumentTitle>
     );

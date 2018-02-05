@@ -79,7 +79,7 @@ export default class FlowDesign extends PureComponent {
           placeholder="请输入模型名称"
           enterButton
           onSearch={() => {
-            showList(list.pageNo,list.pageSize)
+            showList(1,list.pageSize)
           }}
         />
       </div>

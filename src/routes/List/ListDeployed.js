@@ -46,7 +46,7 @@ export default class ListDeployed extends PureComponent {
           placeholder="请输入流程名称"
           enterButton
           onSearch={() => {
-            showList(list2.pageNo,list2.pageSize)
+            showList(1,list2.pageSize)
           }}
         />
       </div>
