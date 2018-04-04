@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
-import { Popconfirm, Form, notification, Upload, message, Modal, List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
+import { Popover, Popconfirm, Form, notification, Upload, message, Modal, List, Card, Row, Col, Radio, Input, Progress, Button, Icon, Dropdown, Menu, Avatar } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
@@ -100,11 +100,13 @@ export default class FlowDesign extends PureComponent {
       },
     };
 
-    const ListContent = ({ data: { owner, createTime, lastUpdateTime, percent, status, businessId } }) => (
+    const ListContent = ({ data: { tenant, createTime, lastUpdateTime, percent, status, businessId } }) => (
       <div className={styles.listContent}>
         <div>
-          <span>Owner</span>
-          <p>{owner}&nbsp;</p>
+          <span></span>
+          <Popover placement="left" overlayStyle={{paddingRight:20}} title="角色" content={tenant==null?null:(tenant.accountRole==null?null:tenant.accountRole[0].role.name)} trigger="hover">
+            <p>{tenant==null?null:tenant.name}&nbsp;</p>
+          </Popover>
         </div>
         <div>
           <span>创建时间</span>
