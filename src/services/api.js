@@ -57,27 +57,45 @@ export async function queryAdvancedProfile() {
 }
 
 export async function listDeployed(params) {
-  return request(`/api/listDeployed?${stringify(params)}`);
+  return request(`/api/listDeployed?${stringify(params)}`,{
+    method: 'POST',
+  });
 }
 
 export async function listDesigning(params) {
-  return request(`/api/listDesigning?${stringify(params)}`);
+  return request(`/api/listDesigning?${stringify(params)}`,{
+    method: 'POST',
+  });
 }
 
 export async function doStart(params) {
-  return request(`/api/doStart?${stringify(params)}`);
+  return request(`/api/doStart?${stringify(params)}`,{
+    method: 'POST',
+  });
 }
 
 export async function doDeploy(params) {
-  return request(`/api/doDeploy?${stringify(params)}`);
+  return request(`/api/doDeploy?${stringify(params)}`,{
+    method: 'POST',
+  });
 }
 
 export async function doCopy(params) {
-  return request(`/api/copyProcess?${stringify(params)}`);
+  return request(`/api/copyProcess?${stringify(params)}`,{
+    method: 'POST',
+  });
 }
 
 export async function doDelete(params) {
-  return request(`/api/deleteModel?${stringify(params)}`);
+  return request(`/api/deleteModel?${stringify(params)}`,{
+    method: 'POST',
+  });
+}
+
+export async function loginTest(params) {
+  return request(`/api/loginTest?${stringify(params)}`,{
+    method: 'POST',
+  });
 }
 
 export async function fakeAccountLogin(params) {

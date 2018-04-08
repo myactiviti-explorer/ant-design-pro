@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router';
-import { fakeAccountLogin } from '../services/api';
+import { fakeAccountLogin, loginTest } from '../services/api';
 
 export default {
   namespace: 'login',
@@ -33,6 +33,15 @@ export default {
       });
       yield put(routerRedux.push('/user/login'));
     },
+    *test({ payload }, { call, put }) {
+      const response = yield call(loginTest, payload);
+      yield put({
+        type: 'loginTest',
+        payload: response,
+        callback: payload.callback,
+      });
+      // payload.callback('cool')
+    },
   },
 
   reducers: {
@@ -50,5 +59,12 @@ export default {
         submitting: payload,
       };
     },
+    loginTest(state, action) {
+      if(action.payload.flag){
+        action.callback();
+      }else{
+        action.callback(action.payload.message);
+      }
+    }
   },
 };

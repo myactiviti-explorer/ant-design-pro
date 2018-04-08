@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Form, Input, Tabs, Button, Icon, Checkbox, Row, Col, Alert } from 'antd';
+import RenderAuthorized from '../../components/Authorized';
+// import RenderAuthorized from 'ant-design-pro/lib/Authorized';
 import styles from './Login.less';
 
 const FormItem = Form.Item;
 const { TabPane } = Tabs;
-
+const user = 'user';
+const Authorized = RenderAuthorized(user);
+const noMatch = <Alert message="No permission." type="error" showIcon />;
+const havePermission = () => {
+  return false;
+};
 @connect(state => ({
   login: state.login,
 }))
@@ -42,13 +49,14 @@ export default class Login extends Component {
     this.props.form.validateFields({ force: true },
       (err, values) => {
         if (!err) {
-          this.props.dispatch({
-            type: 'login/login',
-            payload: {
-              ...values,
-              type: this.state.type,
-            },
-          });
+          // this.props.dispatch({
+          //   type: 'login/login',
+          //   payload: {
+          //     ...values,
+          //     type: this.state.type,
+          //   },
+          // });
+          alert('a')
         }
       }
     );
@@ -82,28 +90,46 @@ export default class Login extends Component {
               }
               <FormItem>
                 {getFieldDecorator('userName', {
+                  validateFirst: true,
                   rules: [{
-                    required: type === 'account', message: '请输入账户名！',
+                    required: true, message: '邮件地址不能为空'
+                  },{
+                    type:'email', message: '请输入正确的邮件地址',
+                  },{
+                    validator:(rule,value,callback)=>{
+                      this.props.dispatch({
+                        type: 'login/test',
+                        payload: {
+                          rule: rule,
+                          value: value,
+                          callback: callback,
+                        },
+                      })
+                    }
                   }],
+                  validateTrigger:'onBlur'
                 })(
                   <Input
                     size="large"
                     prefix={<Icon type="user" className={styles.prefixIcon} />}
-                    placeholder="admin"
+                    placeholder="您的邮件地址"
                   />
                 )}
               </FormItem>
               <FormItem>
                 {getFieldDecorator('password', {
                   rules: [{
-                    required: type === 'account', message: '请输入密码！',
+                    required: true, message: '请输入密码',
+                  },{
+                    type: 'string', message: '字符不合法',
                   }],
+                  validateTrigger:'onBlur'
                 })(
                   <Input
                     size="large"
                     prefix={<Icon type="lock" className={styles.prefixIcon} />}
                     type="password"
-                    placeholder="888888"
+                    placeholder="请输入密码"
                   />
                 )}
               </FormItem>
