@@ -1,6 +1,7 @@
 import { routerRedux } from 'dva/router';
-import { fakeAccountLogin, loginTest } from '../services/api';
-
+import { fakeAccountLogin, loginTest, accountLogin } from '../services/api';
+import { notification } from 'antd';
+import DCR from '../utils/DealCommonReturn';
 export default {
   namespace: 'login',
 
@@ -14,14 +15,21 @@ export default {
         type: 'changeSubmitting',
         payload: true,
       });
-      const response = yield call(fakeAccountLogin, payload);
+      const response = yield call(accountLogin, payload);
       yield put({
         type: 'changeLoginStatus',
         payload: response,
       });
-      // Login successfully
-      if (response.status === 'ok') {
-        yield put(routerRedux.push('/'));
+      console.log(response)
+      if (response.RetCode==='1') {
+        // Login successfully
+        // yield put(routerRedux.push('/'));
+        document.location.href='/';
+      }else{
+        yield put({
+          type: 'showMessage',
+          payload: response,
+        });
       }
     },
     *logout(_, { put }) {
@@ -60,11 +68,23 @@ export default {
       };
     },
     loginTest(state, action) {
-      if(action.payload.flag){
+      if(action.payload.RetCode==='1'){
         action.callback();
       }else{
-        action.callback(action.payload.message);
+        action.callback(action.payload.RetVal);
       }
-    }
+      return {
+        ...state,
+      }
+    },
+    showMessage(state, action) {
+      DCR.deal(action.payload);
+      if(action.callback!=null){
+        (action.callback)()
+      }
+      return {
+        ...state,
+      }
+    },
   },
 };

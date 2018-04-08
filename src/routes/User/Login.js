@@ -49,14 +49,14 @@ export default class Login extends Component {
     this.props.form.validateFields({ force: true },
       (err, values) => {
         if (!err) {
-          // this.props.dispatch({
-          //   type: 'login/login',
-          //   payload: {
-          //     ...values,
-          //     type: this.state.type,
-          //   },
-          // });
-          alert('a')
+          this.props.dispatch({
+            type: 'login/login',
+            payload: {
+              ...values,
+              type: this.state.type,
+              // node: 
+            },
+          });
         }
       }
     );
@@ -89,7 +89,7 @@ export default class Login extends Component {
                 this.renderMessage('账户或密码错误')
               }
               <FormItem>
-                {getFieldDecorator('userName', {
+                {getFieldDecorator('email', {
                   validateFirst: true,
                   rules: [{
                     required: true, message: '邮件地址不能为空'

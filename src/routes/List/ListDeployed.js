@@ -111,7 +111,7 @@ export default class ListDeployed extends PureComponent {
         },
       })
     }
-    const start = (s,n) => {
+    const start = (s) => {
       this.props.dispatch({
         type: 'list/start',
         payload: {

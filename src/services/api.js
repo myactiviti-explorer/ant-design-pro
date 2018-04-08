@@ -98,6 +98,12 @@ export async function loginTest(params) {
   });
 }
 
+export async function accountLogin(params) {
+  return request(`/api/accountLogin?${stringify(params)}`,{
+    method: 'POST',
+  });
+}
+
 export async function fakeAccountLogin(params) {
   return request('/api/login/account', {
     method: 'POST',
