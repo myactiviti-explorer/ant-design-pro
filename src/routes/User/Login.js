@@ -2,18 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Form, Input, Tabs, Button, Icon, Checkbox, Row, Col, Alert } from 'antd';
-import RenderAuthorized from '../../components/Authorized';
-// import RenderAuthorized from 'ant-design-pro/lib/Authorized';
 import styles from './Login.less';
 
 const FormItem = Form.Item;
 const { TabPane } = Tabs;
-const user = 'user';
-const Authorized = RenderAuthorized(user);
-const noMatch = <Alert message="No permission." type="error" showIcon />;
-const havePermission = () => {
-  return false;
-};
 @connect(state => ({
   login: state.login,
 }))
@@ -54,7 +46,6 @@ export default class Login extends Component {
             payload: {
               ...values,
               type: this.state.type,
-              // node: 
             },
           });
         }
@@ -98,7 +89,7 @@ export default class Login extends Component {
                   },{
                     validator:(rule,value,callback)=>{
                       this.props.dispatch({
-                        type: 'login/test',
+                        type: 'login/checkEmail',
                         payload: {
                           rule: rule,
                           value: value,

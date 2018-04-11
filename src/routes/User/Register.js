@@ -156,17 +156,30 @@ export default class Register extends Component {
         <Form onSubmit={this.handleSubmit}>
           <FormItem>
             {getFieldDecorator('mail', {
+              validateFirst: true,
               rules: [
                 {
                   required: true,
-                  message: '请输入邮箱地址！',
+                  message: '邮件地址不能为空',
                 },
                 {
                   type: 'email',
-                  message: '邮箱地址格式错误！',
-                },
+                  message: '请输入正确的邮件地址',
+                },{
+                  validator:(rule,value,callback)=>{
+                    this.props.dispatch({
+                      type: 'register/checkEmail',
+                      payload: {
+                        rule: rule,
+                        value: value,
+                        callback: callback,
+                      },
+                    })
+                  }
+                }
               ],
-            })(<Input size="large" placeholder="邮箱" />)}
+              validateTrigger:'onBlur'
+            })(<Input size="large" placeholder="您的邮件地址" />)}
           </FormItem>
           <FormItem help={this.state.help}>
             <Popover

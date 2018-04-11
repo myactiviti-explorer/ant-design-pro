@@ -92,8 +92,14 @@ export async function doDelete(params) {
   });
 }
 
-export async function loginTest(params) {
-  return request(`/api/loginTest?${stringify(params)}`,{
+export async function loginCheckEmail(params) {
+  return request(`/api/loginCheckEmail?${stringify(params)}`,{
+    method: 'POST',
+  });
+}
+
+export async function registerCheckEmail(params) {
+  return request(`/api/registerCheckEmail?${stringify(params)}`,{
     method: 'POST',
   });
 }

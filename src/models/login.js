@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router';
-import { fakeAccountLogin, loginTest, accountLogin } from '../services/api';
+import { fakeAccountLogin, loginCheckEmail, accountLogin } from '../services/api';
 import { notification } from 'antd';
 import DCR from '../utils/DealCommonReturn';
 export default {
@@ -20,7 +20,6 @@ export default {
         type: 'changeLoginStatus',
         payload: response,
       });
-      console.log(response)
       if (response.RetCode==='1') {
         // Login successfully
         // yield put(routerRedux.push('/'));
@@ -41,14 +40,13 @@ export default {
       });
       yield put(routerRedux.push('/user/login'));
     },
-    *test({ payload }, { call, put }) {
-      const response = yield call(loginTest, payload);
+    *checkEmail({ payload }, { call, put }) {
+      const response = yield call(loginCheckEmail, payload);
       yield put({
-        type: 'loginTest',
+        type: 'loginCheckEmail',
         payload: response,
         callback: payload.callback,
       });
-      // payload.callback('cool')
     },
   },
 
@@ -67,7 +65,7 @@ export default {
         submitting: payload,
       };
     },
-    loginTest(state, action) {
+    loginCheckEmail(state, action) {
       if(action.payload.RetCode==='1'){
         action.callback();
       }else{

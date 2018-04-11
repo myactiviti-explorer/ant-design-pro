@@ -1,4 +1,4 @@
-import { fakeRegister } from '../services/api';
+import { fakeRegister,registerCheckEmail } from '../services/api';
 
 export default {
   namespace: 'register',
@@ -23,6 +23,14 @@ export default {
         payload: false,
       });
     },
+    *checkEmail({ payload }, { call, put }) {
+      const response = yield call(registerCheckEmail, payload);
+      yield put({
+        type: 'registerCheckEmail',
+        payload: response,
+        callback: payload.callback,
+      });
+    },
   },
 
   reducers: {
@@ -37,6 +45,25 @@ export default {
         ...state,
         submitting: payload,
       };
+    },
+    registerCheckEmail(state, action) {
+      if(action.payload.RetCode==='1'){
+        action.callback();
+      }else{
+        action.callback(action.payload.RetVal);
+      }
+      return {
+        ...state,
+      }
+    },
+    showMessage(state, action) {
+      DCR.deal(action.payload);
+      if(action.callback!=null){
+        (action.callback)()
+      }
+      return {
+        ...state,
+      }
     },
   },
 };
