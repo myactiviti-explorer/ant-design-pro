@@ -20,6 +20,10 @@ export default {
         type: 'changeLoginStatus',
         payload: response,
       });
+      yield put({
+        type: 'changeSubmitting',
+        payload: false,
+      });
       if (response.RetCode==='1') {
         // Login successfully
         // yield put(routerRedux.push('/'));

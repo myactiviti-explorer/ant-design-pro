@@ -104,6 +104,12 @@ export async function registerCheckEmail(params) {
   });
 }
 
+export async function registerSubmit(params) {
+  return request(`/api/sendRegisterEmail?${stringify(params)}`,{
+    method: 'POST',
+  });
+}
+
 export async function accountLogin(params) {
   return request(`/api/accountLogin?${stringify(params)}`,{
     method: 'POST',

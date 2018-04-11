@@ -185,7 +185,7 @@ export default class Register extends Component {
       <div className={styles.main}>
         <Form onSubmit={this.handleSubmit}>
           <FormItem>
-            {getFieldDecorator('mail', {
+            {getFieldDecorator('email', {
               validateFirst: true,
               rules: [
                 {

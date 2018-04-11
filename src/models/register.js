@@ -1,5 +1,5 @@
-import { fakeRegister,registerCheckEmail } from '../services/api';
-
+import { fakeRegister, registerCheckEmail, registerSubmit, } from '../services/api';
+import DCR from '../utils/DealCommonReturn';
 export default {
   namespace: 'register',
 
@@ -8,7 +8,7 @@ export default {
   },
 
   effects: {
-    *submit(_, { call, put }) {
+    *fakeRegister(_, { call, put }) {
       yield put({
         type: 'changeSubmitting',
         payload: true,
@@ -29,6 +29,25 @@ export default {
         type: 'registerCheckEmail',
         payload: response,
         callback: payload.callback,
+      });
+    },
+    *submit({ payload }, { call, put }) {
+      yield put({
+        type: 'changeSubmitting',
+        payload: true,
+      });
+      const response = yield call(registerSubmit, payload);
+      // yield put({
+      //   type: 'registerHandle',
+      //   payload: response,
+      // });
+      yield put({
+        type: 'changeSubmitting',
+        payload: false,
+      });
+      yield put({
+        type: 'showMessage',
+        payload: response,
       });
     },
   },
