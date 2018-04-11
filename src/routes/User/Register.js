@@ -9,15 +9,17 @@ const { Option } = Select;
 const InputGroup = Input.Group;
 
 const passwordStatusMap = {
+  okey: <div className={styles.success}>强度：非常强</div>,
   ok: <div className={styles.success}>强度：强</div>,
   pass: <div className={styles.warning}>强度：中</div>,
-  pool: <div className={styles.error}>强度：太短</div>,
+  poor: <div className={styles.error}>强度：低</div>,
 };
 
 const passwordProgressMap = {
+  okey: 'success',
   ok: 'success',
   pass: 'normal',
-  pool: 'exception',
+  poor: 'exception',
 };
 
 @connect(state => ({
@@ -54,17 +56,37 @@ export default class Register extends Component {
       }
     }, 1000);
   };
-
+  checkPasswordComplexity = (value) => {
+    var complexity = 0;
+    if(/([a-z])+/.test(value)){
+      complexity++;
+    }
+    if(/([0-9])+/.test(value)){
+      complexity++;
+    }
+    if(/([A-Z])+/.test(value)){
+      complexity++;
+    }
+    if(/[^a-zA-Z0-9]+/.test(value)){
+      complexity++;
+    }
+    return complexity;
+  };
   getPasswordStatus = () => {
     const { form } = this.props;
     const value = form.getFieldValue('password');
-    if (value && value.length > 9) {
+    var rate = 0;
+    rate = this.checkPasswordComplexity(value);
+    if ( rate > 3) {
+      return 'okey';
+    }
+    if ( rate == 3) {
       return 'ok';
     }
-    if (value && value.length > 5) {
+    if ( rate == 2) {
       return 'pass';
     }
-    return 'pool';
+    return 'poor';
   };
 
   handleSubmit = (e) => {
@@ -99,7 +121,7 @@ export default class Register extends Component {
   checkPassword = (rule, value, callback) => {
     if (!value) {
       this.setState({
-        help: '请输入密码！',
+        help: '请输入密码',
         visible: !!value,
       });
       callback('error');
@@ -113,8 +135,21 @@ export default class Register extends Component {
         });
       }
       if (value.length < 6) {
+        this.setState({
+          help: '密码过短',
+        });
         callback('error');
-      } else {
+      }else if(this.checkPasswordComplexity(value) < 2){
+        this.setState({
+          help: '密码强度过低',
+        });
+        callback('error');
+      }else if (value.length > 10) {
+        this.setState({
+          help: '密码过长',
+        });
+        callback('error');
+      }else {
         const { form } = this.props;
         if (value && this.state.confirmDirty) {
           form.validateFields(['confirm'], { force: true });
@@ -124,23 +159,18 @@ export default class Register extends Component {
     }
   };
 
-  changePrefix = (value) => {
-    this.setState({
-      prefix: value,
-    });
-  };
-
   renderPasswordProgress = () => {
     const { form } = this.props;
     const value = form.getFieldValue('password');
+    var rate = this.checkPasswordComplexity(value);
     const passwordStatus = this.getPasswordStatus();
     return value && value.length ? (
       <div className={styles[`progress-${passwordStatus}`]}>
         <Progress
           status={passwordProgressMap[passwordStatus]}
           className={styles.progress}
-          strokeWidth={6}
-          percent={value.length * 10 > 100 ? 100 : value.length * 10}
+          strokeWidth={4}
+          percent={rate * 25 > 100 ? 100 : rate * 25}
           showInfo={false}
         />
       </div>
@@ -188,7 +218,7 @@ export default class Register extends Component {
                   {passwordStatusMap[this.getPasswordStatus()]}
                   {this.renderPasswordProgress()}
                   <div style={{ marginTop: 10 }}>
-                    请至少输入 6 个字符。请不要使用容易被猜到的密码。
+                    请尽量使用数字、大小写字母和特殊字符组成的密码。
                   </div>
                 </div>
               }
@@ -197,6 +227,7 @@ export default class Register extends Component {
               visible={this.state.visible}
             >
               {getFieldDecorator('password', {
+                validateFirst: true,
                 rules: [
                   {
                     validator: this.checkPassword,
@@ -206,7 +237,7 @@ export default class Register extends Component {
                 <Input
                   size="large"
                   type="password"
-                  placeholder="至少6位密码，区分大小写"
+                  placeholder="6-10位密码，区分大小写"
                 />
               )}
             </Popover>
