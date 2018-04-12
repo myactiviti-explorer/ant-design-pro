@@ -229,6 +229,7 @@ export default class Register extends Component {
                   {this.renderPasswordProgress()}
                   <div style={{ marginTop: 10 }}>
                     请尽量使用数字、大小写字母和特殊字符组成的密码。
+                    <a onClick={this.blurPassword}>Close</a>
                   </div>
                 </div>
               }
