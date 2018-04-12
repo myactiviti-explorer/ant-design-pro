@@ -158,7 +158,17 @@ export default class Register extends Component {
       }
     }
   };
-
+  blurPassword = () => {
+    this.setState({
+      visible: false,
+    });
+  }
+  focusPassword = (e) => {
+    const { value } = e.target;
+    this.setState({
+      visible: !!value,
+    });
+  }
   renderPasswordProgress = () => {
     const { form } = this.props;
     const value = form.getFieldValue('password');
@@ -238,6 +248,8 @@ export default class Register extends Component {
                   size="large"
                   type="password"
                   placeholder="6-10位密码，区分大小写"
+                  onBlur={this.blurPassword}
+                  onFocus={this.focusPassword}
                 />
               )}
             </Popover>
