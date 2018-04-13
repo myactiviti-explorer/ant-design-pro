@@ -68,12 +68,31 @@ export const getNavData = app => [
             component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/AdvancedForm')),
           }],
       },
+      {
+        name: '结果',
+        path: 'result',
+        icon: 'check-circle-o',
+        hideInMenu: true,
+        children: [
+          {
+            name: '成功',
+            path: 'success',
+            component: dynamicWrapper(app, [], () => import('../routes/Result/Success')),
+          },
+          {
+            name: '失败',
+            path: 'fail',
+            component: dynamicWrapper(app, [], () => import('../routes/Result/Error')),
+          },
+        ],
+      },
     ],
   },
   {
     component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
-    path: '/user',
+    path: '/',
     layout: 'UserLayout',
+    hideInMenu: true,
     children: [
       {
         name: '帐户',
@@ -89,11 +108,13 @@ export const getNavData = app => [
             name: '注册',
             path: 'register',
             component: dynamicWrapper(app, ['register'], () => import('../routes/User/Register')),
+            hideInMenu: true,
           },
           {
             name: '注册结果',
             path: 'register-result',
             component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
+            hideInMenu: true,
           },
         ],
       },

@@ -11,7 +11,7 @@ export default class SiderMenu extends PureComponent {
   constructor(props) {
     super(props);
     // 把一级 Layout 的 children 作为菜单项
-    this.menus = props.navData.reduce((arr, current) => arr.concat(current.children), []);
+    this.menus = props.navData.reduce((arr, current) => arr.concat(!current.hideInMenu?current.children:''), []);
     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     };
@@ -43,7 +43,7 @@ export default class SiderMenu extends PureComponent {
       return [];
     }
     return menusData.map((item) => {
-      if (!item.name) {
+      if (!item.name || item.hideInMenu) {
         return null;
       }
       let itemPath;

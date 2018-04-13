@@ -37,18 +37,18 @@ export default {
         payload: true,
       });
       const response = yield call(registerSubmit, payload);
-      // yield put({
-      //   type: 'registerHandle',
-      //   payload: response,
-      // });
       yield put({
         type: 'changeSubmitting',
         payload: false,
       });
-      yield put({
-        type: 'showMessage',
-        payload: response,
-      });
+      if(response.RetCode==='1'){
+        document.location.href='/#/user/register-result';
+      }else{
+        yield put({
+          type: 'showMessage',
+          payload: response,
+        });
+      }
     },
   },
 
