@@ -26,8 +26,7 @@ export default {
       });
       if (response.RetCode==='1') {
         // Login successfully
-        // yield put(routerRedux.push('/'));
-        document.location.href='/';
+        yield put(routerRedux.push({pathname:'/'}));
       }else{
         yield put({
           type: 'showMessage',

@@ -1,4 +1,5 @@
 import { fakeRegister, registerCheckEmail, registerSubmit, } from '../services/api';
+import { routerRedux } from 'dva/router';
 import DCR from '../utils/DealCommonReturn';
 export default {
   namespace: 'register',
@@ -42,7 +43,12 @@ export default {
         payload: false,
       });
       if(response.RetCode==='1'){
-        document.location.href='/#/user/register-result';
+        yield put(routerRedux.push({
+          pathname: '/user/register-result',
+          query:{
+            email: payload.email
+          }
+        }));
       }else{
         yield put({
           type: 'showMessage',

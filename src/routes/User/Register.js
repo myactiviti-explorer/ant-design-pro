@@ -9,8 +9,8 @@ const { Option } = Select;
 const InputGroup = Input.Group;
 
 const passwordStatusMap = {
-  okey: <div className={styles.success}>强度：非常强</div>,
-  ok: <div className={styles.success}>强度：强</div>,
+  okey: <div className={styles.success}>强度：非常高</div>,
+  ok: <div className={styles.success}>强度：高</div>,
   pass: <div className={styles.warning}>强度：中</div>,
   poor: <div className={styles.error}>强度：低</div>,
 };
