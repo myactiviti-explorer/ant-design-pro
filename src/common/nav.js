@@ -119,6 +119,11 @@ export const getNavData = app => [
             path: 'global-success',
             component: dynamicWrapper(app, [], () => import('../routes/User/GlobalSuccess')),
           },
+          {
+            name: '失败',
+            path: 'global-error',
+            component: dynamicWrapper(app, [], () => import('../routes/User/GlobalError')),
+          },
         ],
       },
     ],
