@@ -108,13 +108,16 @@ export const getNavData = app => [
             name: '注册',
             path: 'register',
             component: dynamicWrapper(app, ['register'], () => import('../routes/User/Register')),
-            hideInMenu: true,
           },
           {
             name: '注册结果',
             path: 'register-result',
             component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
-            hideInMenu: true,
+          },
+          {
+            name: '成功',
+            path: 'global-success',
+            component: dynamicWrapper(app, [], () => import('../routes/User/GlobalSuccess')),
           },
         ],
       },
