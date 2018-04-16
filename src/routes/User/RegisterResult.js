@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import queryString from 'query-string';
 import { Button } from 'antd';
 import { Link } from 'dva/router';
 import Result from '../../components/Result';
 import styles from './RegisterResult.less';
 export default class RegisterResult extends Component {
 render() {
-  const query = this.props.location.query;
+  // const query = this.props.location.query;
+  const query = this.props.location.query || queryString.parse(this.props.location.search);
   if(query!=null){
     console.log(query.email);
   }
